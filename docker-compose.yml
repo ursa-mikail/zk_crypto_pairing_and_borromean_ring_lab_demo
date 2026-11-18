@@ -1,0 +1,7 @@
+services:
+  lab:
+    build: .
+    container_name: cryptolab
+    ports:
+      - "8470:8470"
+    restart: unless-stopped

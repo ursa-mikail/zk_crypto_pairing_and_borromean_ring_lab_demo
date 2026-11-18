@@ -1,0 +1,9 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+if docker compose version >/dev/null 2>&1; then DC="docker compose"; else DC="docker-compose"; fi
+$DC up -d --build || exit 1
+i=0
+until curl -fs http://localhost:8470/api/health >/dev/null 2>&1 || [ $i -ge 30 ]; do i=$((i+1)); sleep 1; done
+echo ""
+echo "  ◆ Crypto Lab is live  →  http://localhost:8470"
+echo "  stop: ./down     remove everything: ./clean"

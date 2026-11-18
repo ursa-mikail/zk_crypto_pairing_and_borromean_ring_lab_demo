@@ -1,0 +1,6 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+if docker compose version >/dev/null 2>&1; then DC="docker compose"; else DC="docker-compose"; fi
+$DC down --rmi local --volumes --remove-orphans
+docker image prune -f >/dev/null 2>&1
+echo "  ◆ Crypto Lab removed (containers, images, volumes)."
